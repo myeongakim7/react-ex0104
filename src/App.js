@@ -3,42 +3,33 @@ import { useState, useEffect } from "react";
 
 function App() {
   // state 정의
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
-  const addCount = () => {
-    setCount(count + 1);
-    // count++; < 이렇게 하면 안됨
+  const [click, setClick] = useState("#ccc");
+  const changeClickRed = () => {
+    setClick("red");
   };
-  const descCount = () => {
-    setCount(count - 1);
+  const changeClickGreen = () => {
+    setClick("green");
+  };
+  const changeClickBlue = () => {
+    setClick("blue");
   };
 
-  console.log("App 랜더링"); // clg에서 2번찍힘
-
-  // useEffect(함수, [상태변수=의존값]);
-
-  // useEffect(() => {
-  //   console.log("하이염");
-  // });
-
-  // 이렇게 하면 화면 모두 업데이트 => 그래서 누가 바뀌는지 정의해줘야함 - 정의해준 것(상태)만 바뀜
-  // [] 의존값(state) 변수는 배열의 형태로 여러개 입력 가능함
-
-  // useEffect(함수) - 모든 상태변화 감지 (비추천)
-  // useEffect(함수,[]) - 시작(마운트)할 때 1번만 (초기화개념)
-  // useEffect(함수,[변수값]) - [상태변수=state]가 update 할 때마다 실행
-
-  // 상태변수 업데이트 감지
   useEffect(() => {
-    console.log("count update");
-  }, [count]);
+    console.log("color click 업데이트");
+  }, [click]);
 
+  // 해당 색깔 버튼을 누르면 박스 색이 바뀜
+  // 여러 개 만들 수 있음
   return (
-    <div className="box">
-      <h1>App</h1>
-      <p>count : {count}</p>
-      <button onClick={addCount}>count 증가</button>&nbsp;
-      <button onClick={descCount}>count 감소</button>
+    <div className="container">
+      <h1>Color App</h1>
+      <div className="color-box" style={{ backgroundColor: click }}></div>
+      {/* color-box style 배경에 변수 넣기*/}
+      <div className="btn-group">
+        <button onClick={changeClickRed}>red</button>
+        <button onClick={changeClickGreen}>green</button>
+        <button onClick={changeClickBlue}>blue</button>
+      </div>
     </div>
   );
 }
